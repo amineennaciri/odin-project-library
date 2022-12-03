@@ -16,7 +16,10 @@ const theHobbit = new Book('The Hobbit','J.R.R. Tolkien','295','not read yet')
 // "The Hobbit by J.R.R. Tolkien, 295 pages, not read yet"
 
 const btnAdd = document.querySelector('.btn')
-const userInput = document.querySelector('.bookForm')
+const userTitle = document.querySelector('.bookTitle')
+const userAuthor = document.querySelector('.bookAuthor')
+const userPages = document.querySelector('.bookPages')
+const userRead = document.querySelector('.bookRead')
 btnAdd.addEventListener('click',addBookToLibrary)/* , () => {
     console.log('hello world');
     alert(userInput.value)
@@ -29,8 +32,9 @@ btnAdd.addEventListener('click',addBookToLibrary)/* , () => {
 function addBookToLibrary(e){
     console.log(e)
     console.log('hello world');
-    alert(userInput.value)
-    myLibrary[0] = userInput.value;
-    console.log(myLibrary); 
+    alert(userTitle.value)
+    myLibrary[0] = new Book(`${userTitle.value}`,`${userAuthor.value}`,`${userPages.value}`,`${userRead.value}`);
+    console.log(myLibrary);
+    console.log(myLibrary[0].info())
     return myLibrary;
 }
