@@ -1,5 +1,5 @@
 let myLibrary = []
-
+let bookLib = []
 /* code legacy from previous exercise */
 function Book(title,author,pages,read){
     this.title = title
@@ -16,25 +16,50 @@ const theHobbit = new Book('The Hobbit','J.R.R. Tolkien','295','not read yet')
 // "The Hobbit by J.R.R. Tolkien, 295 pages, not read yet"
 
 const btnAdd = document.querySelector('.btn')
+const btnDisp = document.querySelector('.btnShow')
 const userTitle = document.querySelector('.bookTitle')
 const userAuthor = document.querySelector('.bookAuthor')
 const userPages = document.querySelector('.bookPages')
 const userRead = document.querySelector('.bookRead')
-btnAdd.addEventListener('click',addBookToLibrary)/* , () => {
+btnAdd.addEventListener('click',addBookToLibrary);
+btnDisp.addEventListener('click', () => {
+    console.log('hello world');})//,displayLib);
+/* , () => {
     console.log('hello world');
     alert(userInput.value)
     myLibrary[0] = userInput.value;
     console.log(myLibrary); 
     return myLibrary;
-  }) *///
-
+  }) */
 
 function addBookToLibrary(e){
     console.log(e)
     console.log('hello world');
-    alert(userTitle.value)
-    myLibrary[0] = new Book(`${userTitle.value}`,`${userAuthor.value}`,`${userPages.value}`,`${userRead.value}`);
-    console.log(myLibrary);
-    console.log(myLibrary[0].info())
+    /* alert(userTitle.value) */
+    //myLibrary[0] = new Book(`${userTitle.value}`,`${userAuthor.value}`,`${userPages.value}`,`${userRead.value}`);
+    myLibrary.push( new Book(`${userTitle.value}`,`${userAuthor.value}`,`${userPages.value}`,`${userRead.value}`) );
+    console.log(myLibrary[0].info());
+    /* console.log(myLibrary[0].info()) */
+     for(let i=0;i<=myLibrary.length-1;i++){
+        bookLib[i] = myLibrary[i].info();
+    }
     return myLibrary;
 }
+
+function loopThroughArray(arrA){
+    let bookLib = []
+    for(let i=0;i<=arrA.length-1;i++){
+        bookLib[i] = arrA[i].info();
+    }
+    return bookLib;
+}
+
+/* function displayLib(e){
+/*     console.log('helloworld')
+    console.log(bookLib) 
+    return 'hello world'
+} */
+/* console.log(loopThroughArray(myLibrary)) */
+/* for(let i=0;i<=5;i++){
+    console.log('inside loop');
+} */
