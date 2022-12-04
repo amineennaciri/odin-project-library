@@ -57,10 +57,37 @@ function displayLib(){
     document.querySelector('.readVal').innerText = myLibrary[0].read
     /* Show / Hide the div element */
     let cardToggle = document.querySelector(".card");
-    if (cardToggle.style.display === "none") {
+/*     if (cardToggle.style.display === "none") {
         cardToggle.style.display = "block";
     } else {
         cardToggle.style.display = "none";
-    }
+    } */
+
+    /* creating a div card with DOM manipulation */
+    const divCard = document.createElement('div');
+    divCard.classList.add('card')
+    document.querySelector('.display').appendChild(divCard);
+    const hThree = document.createElement('h3');
+    hThree.textContent = 'Book 2'
+    divCard.appendChild(hThree);
+    const divCardContent = document.createElement('div');
+    divCardContent.classList.add('card-content')
+    divCard.appendChild(divCardContent);
+    const uL = document.createElement('ul');
+    const iL = document.createElement('il');
+    divCardContent.appendChild(uL);
+    uL.appendChild(iL);
+    // creating the articles and spans
+    const articlE = document.createElement('a');
+    const spaN = document.createElement('span');
+    articlE.textContent = 'Title:'
+    spaN.classList.add('titleVal')
+    spaN.innerText = myLibrary[0].title
+    iL.appendChild(articlE);
+    iL.appendChild(spaN);
+
+
     return bookLib;
 }
+
+
