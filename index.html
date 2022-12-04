@@ -8,12 +8,33 @@
     <title>Project Library</title>
 </head>
 <body>
-        <input class="bookTitle" type="text">
-        <input class="bookAuthor" type="text">
-        <input class="bookPages" type="text">
-        <input class="bookRead" type="text">
-        <button class="btn">Add Book</button>
-        <button class="btnShow">Display Library</button>
+        <div class="header">
+            <h1>My Library</h1>
+        </div>
+        <div class="entry">
+            <input class="bookTitle" type="text">
+            <input class="bookAuthor" type="text">
+            <input class="bookPages" type="text">
+            <input class="bookRead" type="text">
+            <button class="btn">Add Book</button>
+            <button class="btnShow">Display Library</button>
+        </div>
+        <div class="display">
+            <h2>My books</h2>
+            <div class="card">
+                <h3>Book 1</h3>
+                <div class="card-content">
+                    <ul>
+                        <li>
+                            <a href="#">Title:</a><span class="titleVal"></span>
+                            <a href="#">Author:</a><span class="authorVal"></span>
+                            <a href="#">Number of pages:</a><span class="pagesVal"></span>
+                            <a href="#">Read Status</a><span class="readVal"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     <script src="javascript/script.js"></script>
 </body>
 </html>

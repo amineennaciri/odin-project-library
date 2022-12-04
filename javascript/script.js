@@ -50,5 +50,17 @@ function displayLib(){
       for(let i=0;i<=bookLib.length-1;i++){
         console.log(bookLib[i]);
     }
+    /* Add the inputs to the span element */
+    document.querySelector('.titleVal').innerText = myLibrary[0].title
+    document.querySelector('.authorVal').innerText = myLibrary[0].author
+    document.querySelector('.pagesVal').innerText = myLibrary[0].pages
+    document.querySelector('.readVal').innerText = myLibrary[0].read
+    /* Show / Hide the div element */
+    let cardToggle = document.querySelector(".card");
+    if (cardToggle.style.display === "none") {
+        cardToggle.style.display = "block";
+    } else {
+        cardToggle.style.display = "none";
+    }
     return bookLib;
 }

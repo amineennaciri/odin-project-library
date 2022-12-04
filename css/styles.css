@@ -1,3 +1,56 @@
 * {
     background-color: lightgray;
+    border: 1px solid black;
+}
+
+html {
+    height: 100vh;
+    width: 100vw;
+}
+body {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 10% 30% 60%;
+}
+
+.header {
+    grid-row: 1/2;
+}
+
+.entry {
+    grid-row: 2/3;
+}
+
+.display {
+    grid-row: 3/4;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.card {
+    width: 300px;
+    height: 400px;
+    display: none;
+}
+
+.card-content ul li{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.card-content ul li a {
+    grid-column: 1/2;
+}
+
+
+.card-content ul li span {
+    grid-column: 2/3;
 }
