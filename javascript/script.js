@@ -22,8 +22,8 @@ const userAuthor = document.querySelector('.bookAuthor')
 const userPages = document.querySelector('.bookPages')
 const userRead = document.querySelector('.bookRead')
 btnAdd.addEventListener('click',addBookToLibrary);
-btnDisp.addEventListener('click', () => {
-    console.log('hello world');})//,displayLib);
+btnDisp.addEventListener('click'/* , () => {
+    console.log('hello world');})// */,displayLib);
 /* , () => {
     console.log('hello world');
     alert(userInput.value)
@@ -33,12 +33,12 @@ btnDisp.addEventListener('click', () => {
   }) */
 
 function addBookToLibrary(e){
-    console.log(e)
-    console.log('hello world');
+/*     console.log(e)
+    console.log('hello world'); */
     /* alert(userTitle.value) */
     //myLibrary[0] = new Book(`${userTitle.value}`,`${userAuthor.value}`,`${userPages.value}`,`${userRead.value}`);
     myLibrary.push( new Book(`${userTitle.value}`,`${userAuthor.value}`,`${userPages.value}`,`${userRead.value}`) );
-    console.log(myLibrary[0].info());
+/*     console.log(myLibrary[0].info()); */
     /* console.log(myLibrary[0].info()) */
      for(let i=0;i<=myLibrary.length-1;i++){
         bookLib[i] = myLibrary[i].info();
@@ -46,20 +46,9 @@ function addBookToLibrary(e){
     return myLibrary;
 }
 
-function loopThroughArray(arrA){
-    let bookLib = []
-    for(let i=0;i<=arrA.length-1;i++){
-        bookLib[i] = arrA[i].info();
+function displayLib(){
+      for(let i=0;i<=bookLib.length-1;i++){
+        console.log(bookLib[i]);
     }
     return bookLib;
 }
-
-/* function displayLib(e){
-/*     console.log('helloworld')
-    console.log(bookLib) 
-    return 'hello world'
-} */
-/* console.log(loopThroughArray(myLibrary)) */
-/* for(let i=0;i<=5;i++){
-    console.log('inside loop');
-} */
