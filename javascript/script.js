@@ -78,15 +78,55 @@ function displayLib(){
     divCardContent.appendChild(uL);
     uL.appendChild(iL);
     // creating the articles and spans
-    const articlE = document.createElement('a');
-    const spaN = document.createElement('span');
-    articlE.textContent = 'Title:'
-    spaN.classList.add('titleVal')
-    spaN.innerText = myLibrary[0].title
-    iL.appendChild(articlE);
-    iL.appendChild(spaN);
-
-
+    // title
+    const articleTitle = document.createElement('a');
+    const spanTitle = document.createElement('span');
+    articleTitle.textContent = 'Title:'
+    articleTitle.href = '#'
+    spanTitle.classList.add('titleVal')
+    spanTitle.innerText = myLibrary[0].title
+    iL.appendChild(articleTitle);
+    iL.appendChild(spanTitle);
+    // author
+    const articleAuthor = document.createElement('a');
+    const spanAuthor = document.createElement('span');
+    articleAuthor.textContent = 'Author:'
+    articleAuthor.href = '#'
+    spanAuthor.classList.add('authorVal')
+    spanAuthor.innerText = myLibrary[0].author
+    iL.appendChild(articleAuthor);
+    iL.appendChild(spanAuthor);
+    // number of pages
+    const articlePages = document.createElement('a');
+    const spanPages = document.createElement('span');
+    articlePages.textContent = 'Number of pages:'
+    articlePages.href = '#'
+    spanPages.classList.add('pagesVal')
+    spanPages.innerText = myLibrary[0].pages
+    iL.appendChild(articlePages);
+    iL.appendChild(spanPages);
+    // read status
+    const articleRead = document.createElement('a');
+    const spanRead = document.createElement('span');
+    articleRead.textContent = 'Read Status'
+    articleRead.href = '#'
+    spanRead.classList.add('readVal')
+    spanRead.innerText = myLibrary[0].read
+    iL.appendChild(articleRead);
+    iL.appendChild(spanRead);
+    // css styling for our card-content
+    iL.style.display = 'grid';
+    iL.style.gridTemplateColumns = '50% 50%';
+    articleTitle.style.gridColumn = '1/2';
+    articleAuthor.style.gridColumn = '1/2';
+    articlePages.style.gridColumn = '1/2';
+    articleRead.style.gridColumn = '1/2';
+    //document.querySelectorAll(".titleVal.authorVal.pagesVal.readVal").style.gridcolumn='2/3';
+    document.querySelector(".titleVal").style.gridColumn='2/3';
+    document.querySelector(".authorVal").style.gridColumn='2/3';
+    document.querySelector(".pagesVal").style.gridColumn='2/3';
+    document.querySelector(".readVal").style.gridColumn='2/3';
+    //
     return bookLib;
 }
 
