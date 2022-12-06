@@ -52,7 +52,18 @@ function addBookToLibrary(e){
 }
 
 function displayLib(){
-
+    // test
+    if(document.querySelector('.card')!=null){
+        const cardNumber = document.querySelectorAll('.card').length;
+        if(cardNumber==1){
+            document.querySelector('.card').remove();
+        }else{
+            for(let i= 0;i<=cardNumber-1;i++){
+                //document.querySelectorAll('.card')[i].remove();
+                document.querySelector('.card').remove();
+            }
+        }
+    }
     for(let i=0;i<=bookLib.length-1;i++){
         console.log(bookLib[i]);
     
@@ -135,8 +146,7 @@ function displayLib(){
         /* Show / Hide the div element */
 /*     let cardToggle = document.querySelector(".card"); */
     }
-    // test
-    iL.remove()
+
     return bookLib;
 }
 
