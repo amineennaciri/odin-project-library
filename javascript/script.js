@@ -52,7 +52,7 @@ function addBookToLibrary(e){
 }
 
 function displayLib(){
-    // test
+    // below is the auto refresh functionality before displaying the books
     if(document.querySelector('.card')!=null){
         const cardNumber = document.querySelectorAll('.card').length;
         if(cardNumber==1){
@@ -64,9 +64,13 @@ function displayLib(){
             }
         }
     }
+    // display books code
+    /* big test */
+    /**/
+
     for(let i=0;i<=bookLib.length-1;i++){
         console.log(bookLib[i]);
-    
+        
 
 /*     if (cardToggle.style.display === "none") {
         cardToggle.style.display = "block";
@@ -76,14 +80,28 @@ function displayLib(){
 
         /* creating a div card with DOM manipulation */
         const divCard = document.createElement('div');
+        //divCard.classList.add(`card${i+1}`)
         divCard.classList.add('card')
+        // select the card we are working on
+        //document.querySelector(`.card${i+1}`)
+        //document.querySelector('.display').appendChild(document.getElementsByClassName(`card${i+1}`));
+        //working
         document.querySelector('.display').appendChild(divCard);
+        //test
+        //document.querySelector('.display').appendChild(document.querySelectorAll('.card')[i]);
         const hThree = document.createElement('h3');
         hThree.textContent = `Book ${i+1}`
-        divCard.appendChild(hThree);
+        //document.getElementsByClassName(`card${i+1}`).appendChild(hThree);
+        //working
+        //divCard.appendChild(hThree);
+        //test
+        document.querySelectorAll('.card')[i].appendChild(hThree);
         const divCardContent = document.createElement('div');
         divCardContent.classList.add('card-content')
-        divCard.appendChild(divCardContent);
+        // working
+        //divCard.appendChild(divCardContent);
+        //test
+        document.querySelectorAll('.card')[i].appendChild(divCardContent);
         const uL = document.createElement('ul');
         const iL = document.createElement('il');
         divCardContent.appendChild(uL);
@@ -149,5 +167,4 @@ function displayLib(){
 
     return bookLib;
 }
-
 
