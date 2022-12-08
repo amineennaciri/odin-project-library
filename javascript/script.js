@@ -11,7 +11,7 @@ function Book(title,author,pages,read){
     }
 }
 
-const theHobbit = new Book('The Hobbit','J.R.R. Tolkien','295','not read yet')
+/* const theHobbit = new Book('The Hobbit','J.R.R. Tolkien','295','not read yet') */
 
 const btnAdd = document.querySelector('.btn')
 const btnDisp = document.querySelector('.btnShow')
@@ -19,10 +19,15 @@ const userTitle = document.querySelector('.bookTitle')
 const userAuthor = document.querySelector('.bookAuthor')
 const userPages = document.querySelector('.bookPages')
 const userRead = document.querySelector('.bookRead')
+
 btnAdd.addEventListener('click',addBookToLibrary);
 btnDisp.addEventListener('click',displayLib);
 
 function addBookToLibrary(e){
+    e.preventDefault(); 
+    // this line prevent the default action to happen
+    // on that event, in this case the default action is
+    // submitting the data to the form's url
     myLibrary.push( new Book(`${userTitle.value}`,`${userAuthor.value}`,`${userPages.value}`,`${userRead.value}`) );
      for(let i=0;i<=myLibrary.length-1;i++){
         bookLib[i] = myLibrary[i].info();
@@ -34,7 +39,13 @@ function addBookToLibrary(e){
     document.querySelector('.bookRead').value = ''
     return myLibrary;
 }
-function displayLib(){
+function displayLib(e){
+    e.preventDefault(); 
+    // this line prevent the default action to happen
+    // on that event, in this case the default action is
+    // submitting the data to the form's url
+
+
     // below is the auto refresh functionality before displaying the books
     if(document.querySelector('.card')!=null){
         const cardNumber = document.querySelectorAll('.card').length;
@@ -48,7 +59,7 @@ function displayLib(){
         }
     }
     for(let i = 0; i<= bookLib.length-1;i++){
-        /* creating a div card with DOM manipulation */
+        // creating a div card with DOM manipulation
         const divCard = document.createElement('div');
         //divCard.classList.add(`card${i+1}`)
         divCard.classList.add('card')
@@ -128,7 +139,7 @@ function displayLib(){
         document.querySelector(".pagesVal").style.gridColumn='2/3';
         document.querySelector(".readVal").style.gridColumn='2/3';
         //
-        /* Add the inputs to the span element */
+        // Add the inputs to the span element
         //document.querySelector('.titleVal').innerText = myLibrary[i].title
         document.querySelectorAll('.card')[i].querySelector('.titleVal').innerText = myLibrary[i].title
         //document.querySelector('.authorVal').innerText = myLibrary[i].author
@@ -140,4 +151,3 @@ function displayLib(){
     }
     return bookLib;
 }
-
