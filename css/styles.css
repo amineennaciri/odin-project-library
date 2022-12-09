@@ -69,10 +69,19 @@ form button {
     grid-row: 3/4;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-template-rows: 20% 50%;
+    grid-template-rows: 20% 60% 20%;
 }
 .display h2 {
     grid-row: 1/2;
+}
+
+.display .btnDelete {
+    grid-row: 3/4;
+    align-self: center;
+    justify-self: center;
+    background-color: red;
+    color: white;
+    font-weight: 900;
 }
 
 /* This part need to be done inside DOM JS*/

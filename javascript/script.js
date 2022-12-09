@@ -1,5 +1,5 @@
 let myLibrary = []
-let bookLib = []
+/* let bookLib = [] */
 /* code legacy from previous exercise */
 function Book(title,author,pages,read){
     this.title = title
@@ -106,9 +106,9 @@ function addBookToLibrary(e){
     // on that event, in this case the default action is
     // submitting the data to the form's url
     myLibrary.push( new Book(`${userTitle.value}`,`${userAuthor.value}`,`${userPages.value}`,`${userRead.value}`) );
-     for(let i=0;i<=myLibrary.length-1;i++){
+/*      for(let i=0;i<=myLibrary.length-1;i++){
         bookLib[i] = myLibrary[i].info();
-    }
+    } */
     // reset input form
     document.querySelector('.bookTitle').value = ''
     document.querySelector('.bookAuthor').value = ''
@@ -117,10 +117,13 @@ function addBookToLibrary(e){
     return myLibrary;
 }
 function displayLib(e){
-    e.preventDefault(); 
-    // this line prevent the default action to happen
-    // on that event, in this case the default action is
-    // submitting the data to the form's url
+    //console.log(e.composedPath()[0].className)
+    if(e.composedPath()[0].className==="btnShow"){
+        e.preventDefault(); 
+        // this line prevent the default action to happen
+        // on that event, in this case the default action is
+        // submitting the data to the form's url
+    }
 
 
     // below is the auto refresh functionality before displaying the books
@@ -135,7 +138,7 @@ function displayLib(e){
             }
         }
     }
-    for(let i = 0; i<= bookLib.length-1;i++){
+    for(let i = 0; i<= myLibrary.length-1;i++){
         // creating a div card with DOM manipulation
         const divCard = document.createElement('div');
         //divCard.classList.add(`card${i+1}`)
@@ -225,6 +228,40 @@ function displayLib(e){
         document.querySelectorAll('.card')[i].querySelector('.pagesVal').innerText = myLibrary[i].pages
         //document.querySelector('.readVal').innerText = myLibrary[i].read
         document.querySelectorAll('.card')[i].querySelector('.readVal').innerText = myLibrary[i].read
+        // delete button
+        const btnDelete = document.createElement('button');
+        btnDelete.setAttribute("class","btnDelete");
+        btnDelete.setAttribute("id",`${i}`);// help us to locate the index of the exact book inside myLibrary
+        btnDelete.innerText='Remove this book';
+        divCard.appendChild(btnDelete);
+        // preparation for next event listeners
+        btnDelete.addEventListener('click',removeBook);
     }
-    return bookLib;
+    return myLibrary;
 }
+
+function removeBook(e){
+/*     const index = console.log(e.id)
+    console.log(index) */
+    //console.log(e.path[1]) // select the container of the button that we clicked on.
+/*     console.log(e.composedPath().attributes)
+    console.log(e.composedPath()[0].attributes[0].textContent) */
+    console.log(e.composedPath()[1].lastChild.id)
+    // now I need to remove the book from the array
+    const bookIndex = e.composedPath()[1].lastChild.id;
+    myLibrary.splice(bookIndex,1);//remove the book from the array
+    e.composedPath()[1].remove(); // remove the book from the display
+}
+/* 
+    // below is the auto refresh functionality before displaying the books
+    if(document.querySelector('.card')!=null){
+        const cardNumber = document.querySelectorAll('.card').length;
+        if(cardNumber==1){
+            document.querySelector('.card').remove();
+        }else{
+            for(let i= 0;i<=cardNumber-1;i++){
+                //document.querySelectorAll('.card')[i].remove();
+                document.querySelector('.card').remove();
+            }
+        }
+    } */
