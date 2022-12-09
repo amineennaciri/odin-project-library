@@ -12,18 +12,95 @@ function Book(title,author,pages,read){
 }
 
 /* const theHobbit = new Book('The Hobbit','J.R.R. Tolkien','295','not read yet') */
-
-const btnAdd = document.querySelector('.btn')
-const btnDisp = document.querySelector('.btnShow')
-const userTitle = document.querySelector('.bookTitle')
-const userAuthor = document.querySelector('.bookAuthor')
-const userPages = document.querySelector('.bookPages')
-const userRead = document.querySelector('.bookRead')
-
-btnAdd.addEventListener('click',addBookToLibrary);
-btnDisp.addEventListener('click',displayLib);
+// Add New Book button that create the form list
+const addNewBookBtn = document.querySelector('.newBook'); 
+addNewBookBtn.addEventListener('click',addNewBook);
+function addNewBook(){
+    // creating form element
+    const newForm = document.createElement('form')
+    newForm.setAttribute("action","#");
+    newForm.setAttribute("class","entry");
+    newForm.setAttribute("method","post");
+    document.body.appendChild(newForm);
+    //titleLabel
+    const titleLabel = document.createElement('label');
+    titleLabel.setAttribute("for","book_title");
+    titleLabel.innerText= 'Title';
+    newForm.appendChild(titleLabel);
+    //titleInput
+    const titleInput = document.createElement('input');
+    titleInput.setAttribute("class","bookTitle");
+    titleInput.setAttribute("id","book_title");
+    titleInput.setAttribute("type","text");
+    newForm.appendChild(titleInput);
+    //authorLabel
+    const authorLabel = document.createElement('label');
+    authorLabel.setAttribute("for","book_author");
+    authorLabel.innerText=`Author's name`;
+    newForm.appendChild(authorLabel);
+    //authorInput
+    const authorInput = document.createElement('input');
+    authorInput.setAttribute("class","bookAuthor");
+    authorInput.setAttribute("id","book_author");
+    authorInput.setAttribute("type","text");
+    newForm.appendChild(authorInput);
+    //pagesLabel
+    const pagesLabel = document.createElement('label');
+    pagesLabel.setAttribute("for","num_pages");
+    pagesLabel.innerText='Number of pages';
+    newForm.appendChild(pagesLabel);
+    //pagesInput
+    const pagesInput = document.createElement('input');
+    pagesInput.setAttribute("class","bookPages");
+    pagesInput.setAttribute("id","book_pages");
+    pagesInput.setAttribute("type","number");
+    newForm.appendChild(pagesInput);
+    //readLabel
+    const readLabel = document.createElement('label');
+    readLabel.setAttribute("for","reading_status");
+    readLabel.innerText='Reading status';
+    newForm.appendChild(readLabel);
+    //read Selection
+    const newSelect = document.createElement('select');
+    newSelect.setAttribute("name","bookRead");
+    newSelect.setAttribute("class","bookRead");
+    newSelect.setAttribute("id","reading_status");
+    newForm.appendChild(newSelect);
+    // option inside selection
+    // read option
+    const readOption = document.createElement('option');
+    readOption.setAttribute("value","Read");
+    readOption.innerText='Read';
+    newSelect.appendChild(readOption);
+    // not read yet option
+    const notReadOption = document.createElement('option');
+    notReadOption.setAttribute("value","Not read yet");
+    notReadOption.innerText='Not read yet';
+    newSelect.appendChild(notReadOption);
+    // submit button
+    const btnAdd = document.createElement('button');
+    btnAdd.setAttribute("class","btn");
+    btnAdd.setAttribute("type","submit");
+    btnAdd.innerText='Submit Book';
+    newForm.appendChild(btnAdd);
+    // display button
+    const btnDisp = document.createElement('button');
+    btnDisp.setAttribute("class","btnShow");
+    btnDisp.innerText='Display Library';
+    newForm.appendChild(btnDisp);
+    // preparation for next event listeners
+    btnAdd.addEventListener('click',addBookToLibrary);
+    btnDisp.addEventListener('click',displayLib);
+}
+// before all this
+/* const btnAdd = document.querySelector('.btn')
+const btnDisp = document.querySelector('.btnShow') */
 
 function addBookToLibrary(e){
+    const userTitle = document.querySelector('.bookTitle')
+    const userAuthor = document.querySelector('.bookAuthor')
+    const userPages = document.querySelector('.bookPages')
+    const userRead = document.querySelector('.bookRead')
     e.preventDefault(); 
     // this line prevent the default action to happen
     // on that event, in this case the default action is
@@ -36,7 +113,7 @@ function addBookToLibrary(e){
     document.querySelector('.bookTitle').value = ''
     document.querySelector('.bookAuthor').value = ''
     document.querySelector('.bookPages').value = ''
-    document.querySelector('.bookRead').value = ''
+    //document.querySelector('.bookRead').value = ''
     return myLibrary;
 }
 function displayLib(e){
