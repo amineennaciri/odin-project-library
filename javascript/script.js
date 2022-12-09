@@ -9,6 +9,13 @@ function Book(title,author,pages,read){
     this.info = function(){
         return `${title} by ${author}, ${pages} pages, ${read}`
     }
+    this.toggle = function(){
+        if (this.read === 'Read'){
+            return this.read = 'Not read yet';
+        }else if((this.read === 'Not read yet')){
+            return this.read = 'Read';
+        }
+    }
 }
 
 /* const theHobbit = new Book('The Hobbit','J.R.R. Tolkien','295','not read yet') */
@@ -117,15 +124,13 @@ function addBookToLibrary(e){
     return myLibrary;
 }
 function displayLib(e){
-    //console.log(e.composedPath()[0].className)
-    if(e.composedPath()[0].className==="btnShow"){
+    //if(e.composedPath()[0].className==="btnShow"){
+    //if(e.type==='click'){
         e.preventDefault(); 
         // this line prevent the default action to happen
         // on that event, in this case the default action is
         // submitting the data to the form's url
-    }
-
-
+    //}
     // below is the auto refresh functionality before displaying the books
     if(document.querySelector('.card')!=null){
         const cardNumber = document.querySelectorAll('.card').length;
@@ -138,32 +143,33 @@ function displayLib(e){
             }
         }
     }
+    if(document.querySelector('.display')===null){ 
+        // this line is used so that we avoid creating multiple h2, each time we click on the button display lib
+        // declaration of the container div
+        const divDisp = document.createElement('div');
+        divDisp.classList.add('display')
+        // this is the trick
+        document.body.appendChild(divDisp);
+        // declaration of the header h2
+        const hTwo = document.createElement('h2');
+        hTwo.innerText = 'My Books'
+        divDisp.appendChild(hTwo); 
+    }
     for(let i = 0; i<= myLibrary.length-1;i++){
         // creating a div card with DOM manipulation
         const divCard = document.createElement('div');
-        //divCard.classList.add(`card${i+1}`)
         divCard.classList.add('card')
-        // select the card we are working on
-        //document.querySelector(`.card${i+1}`)
-        //document.querySelector('.display').appendChild(document.getElementsByClassName(`card${i+1}`));
         // this is the trick
         document.querySelector('.display').appendChild(divCard);
-        //working
-        //document.querySelector('.display').appendChild(document.getElementsByClassName('card'));
         //test
         document.querySelector('.display').appendChild(document.querySelectorAll('.card')[i]);
         const hThree = document.createElement('h3');
         hThree.textContent = `Book ${i+1}`
-        //document.getElementsByClassName(`card${i+1}`).appendChild(hThree);
-        //working
-        //divCard.appendChild(hThree);
-        //test
+ 
         document.querySelectorAll('.card')[i].appendChild(hThree);
         const divCardContent = document.createElement('div');
         divCardContent.classList.add('card-content')
-        // working
-        //divCard.appendChild(divCardContent);
-        //test
+        
         document.querySelectorAll('.card')[i].appendChild(divCardContent);
         const uL = document.createElement('ul');
         const iL = document.createElement('il');
@@ -234,8 +240,16 @@ function displayLib(e){
         btnDelete.setAttribute("id",`${i}`);// help us to locate the index of the exact book inside myLibrary
         btnDelete.innerText='Remove this book';
         divCard.appendChild(btnDelete);
-        // preparation for next event listeners
+        // preparation for next delete buttonn event listeners
         btnDelete.addEventListener('click',removeBook);
+        // change read status button
+        const changeReadStatus = document.createElement('button');
+        changeReadStatus.setAttribute("class","btnChangeStatus");
+        changeReadStatus.setAttribute("id",`${i}`);// help us to locate the index of the exact book inside myLibrary
+        changeReadStatus.innerText='Switch Reading Status';
+        divCard.appendChild(changeReadStatus);
+        // preparation for next delete buttonn event listeners
+        changeReadStatus.addEventListener('click',changeReadingStatus);
     }
     return myLibrary;
 }
@@ -252,16 +266,12 @@ function removeBook(e){
     myLibrary.splice(bookIndex,1);//remove the book from the array
     e.composedPath()[1].remove(); // remove the book from the display
 }
-/* 
-    // below is the auto refresh functionality before displaying the books
-    if(document.querySelector('.card')!=null){
-        const cardNumber = document.querySelectorAll('.card').length;
-        if(cardNumber==1){
-            document.querySelector('.card').remove();
-        }else{
-            for(let i= 0;i<=cardNumber-1;i++){
-                //document.querySelectorAll('.card')[i].remove();
-                document.querySelector('.card').remove();
-            }
-        }
-    } */
+
+function changeReadingStatus(e){
+    //console.log(e.composedPath())
+    const bookIndex = e.composedPath()[1].lastChild.id;
+    myLibrary[bookIndex].toggle();// switch reading status
+    // update the display of the book status
+    document.querySelectorAll('.card')[bookIndex].querySelector('.readVal').innerText = myLibrary[bookIndex].read
+    return myLibrary
+}

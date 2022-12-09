@@ -69,13 +69,15 @@ form button {
     grid-row: 3/4;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-template-rows: 20% 60% 20%;
+    grid-template-rows: 20% 60% 10% 10%;
 }
 .display h2 {
     grid-row: 1/2;
 }
 
 .display .btnDelete {
+    margin-top: 10px;
+    margin-left: 20px;
     grid-row: 3/4;
     align-self: center;
     justify-self: center;
@@ -83,6 +85,18 @@ form button {
     color: white;
     font-weight: 900;
 }
+
+.display .btnChangeStatus {
+    margin-top: 10px;
+    margin-left: 20px;
+    grid-row: 4/5;
+    align-self: center;
+    justify-self: center;
+    background-color: yellowgreen;
+    color: white;
+    font-weight: 900;
+}
+
 
 /* This part need to be done inside DOM JS*/
 .card {
