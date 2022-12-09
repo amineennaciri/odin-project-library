@@ -1,5 +1,5 @@
 let myLibrary = []
-let bookLib = []
+/* let bookLib = [] */
 /* code legacy from previous exercise */
 function Book(title,author,pages,read){
     this.title = title
@@ -9,32 +9,128 @@ function Book(title,author,pages,read){
     this.info = function(){
         return `${title} by ${author}, ${pages} pages, ${read}`
     }
+    this.toggle = function(){
+        if (this.read === 'Read'){
+            return this.read = 'Not read yet';
+        }else if((this.read === 'Not read yet')){
+            return this.read = 'Read';
+        }
+    }
 }
 
-const theHobbit = new Book('The Hobbit','J.R.R. Tolkien','295','not read yet')
-
-const btnAdd = document.querySelector('.btn')
-const btnDisp = document.querySelector('.btnShow')
-const userTitle = document.querySelector('.bookTitle')
-const userAuthor = document.querySelector('.bookAuthor')
-const userPages = document.querySelector('.bookPages')
-const userRead = document.querySelector('.bookRead')
-btnAdd.addEventListener('click',addBookToLibrary);
-btnDisp.addEventListener('click',displayLib);
+/* const theHobbit = new Book('The Hobbit','J.R.R. Tolkien','295','not read yet') */
+// Add New Book button that create the form list
+const addNewBookBtn = document.querySelector('.newBook'); 
+addNewBookBtn.addEventListener('click',addNewBook);
+function addNewBook(){
+    // creating form element
+    const newForm = document.createElement('form')
+    newForm.setAttribute("action","#");
+    newForm.setAttribute("class","entry");
+    newForm.setAttribute("method","post");
+    document.body.appendChild(newForm);
+    //titleLabel
+    const titleLabel = document.createElement('label');
+    titleLabel.setAttribute("for","book_title");
+    titleLabel.innerText= 'Title';
+    newForm.appendChild(titleLabel);
+    //titleInput
+    const titleInput = document.createElement('input');
+    titleInput.setAttribute("class","bookTitle");
+    titleInput.setAttribute("id","book_title");
+    titleInput.setAttribute("type","text");
+    newForm.appendChild(titleInput);
+    //authorLabel
+    const authorLabel = document.createElement('label');
+    authorLabel.setAttribute("for","book_author");
+    authorLabel.innerText=`Author's name`;
+    newForm.appendChild(authorLabel);
+    //authorInput
+    const authorInput = document.createElement('input');
+    authorInput.setAttribute("class","bookAuthor");
+    authorInput.setAttribute("id","book_author");
+    authorInput.setAttribute("type","text");
+    newForm.appendChild(authorInput);
+    //pagesLabel
+    const pagesLabel = document.createElement('label');
+    pagesLabel.setAttribute("for","num_pages");
+    pagesLabel.innerText='Number of pages';
+    newForm.appendChild(pagesLabel);
+    //pagesInput
+    const pagesInput = document.createElement('input');
+    pagesInput.setAttribute("class","bookPages");
+    pagesInput.setAttribute("id","book_pages");
+    pagesInput.setAttribute("type","number");
+    newForm.appendChild(pagesInput);
+    //readLabel
+    const readLabel = document.createElement('label');
+    readLabel.setAttribute("for","reading_status");
+    readLabel.innerText='Reading status';
+    newForm.appendChild(readLabel);
+    //read Selection
+    const newSelect = document.createElement('select');
+    newSelect.setAttribute("name","bookRead");
+    newSelect.setAttribute("class","bookRead");
+    newSelect.setAttribute("id","reading_status");
+    newForm.appendChild(newSelect);
+    // option inside selection
+    // read option
+    const readOption = document.createElement('option');
+    readOption.setAttribute("value","Read");
+    readOption.innerText='Read';
+    newSelect.appendChild(readOption);
+    // not read yet option
+    const notReadOption = document.createElement('option');
+    notReadOption.setAttribute("value","Not read yet");
+    notReadOption.innerText='Not read yet';
+    newSelect.appendChild(notReadOption);
+    // submit button
+    const btnAdd = document.createElement('button');
+    btnAdd.setAttribute("class","btn");
+    btnAdd.setAttribute("type","submit");
+    btnAdd.innerText='Submit Book';
+    newForm.appendChild(btnAdd);
+    // display button
+    const btnDisp = document.createElement('button');
+    btnDisp.setAttribute("class","btnShow");
+    btnDisp.innerText='Display Library';
+    newForm.appendChild(btnDisp);
+    // preparation for next event listeners
+    btnAdd.addEventListener('click',addBookToLibrary);
+    btnDisp.addEventListener('click',displayLib);
+}
+// before all this
+/* const btnAdd = document.querySelector('.btn')
+const btnDisp = document.querySelector('.btnShow') */
 
 function addBookToLibrary(e){
+    const userTitle = document.querySelector('.bookTitle')
+    const userAuthor = document.querySelector('.bookAuthor')
+    const userPages = document.querySelector('.bookPages')
+    const userRead = document.querySelector('.bookRead')
+    e.preventDefault(); 
+    // this line prevent the default action to happen
+    // on that event, in this case the default action is
+    // submitting the data to the form's url
     myLibrary.push( new Book(`${userTitle.value}`,`${userAuthor.value}`,`${userPages.value}`,`${userRead.value}`) );
-     for(let i=0;i<=myLibrary.length-1;i++){
+/*      for(let i=0;i<=myLibrary.length-1;i++){
         bookLib[i] = myLibrary[i].info();
-    }
+    } */
     // reset input form
     document.querySelector('.bookTitle').value = ''
     document.querySelector('.bookAuthor').value = ''
     document.querySelector('.bookPages').value = ''
-    document.querySelector('.bookRead').value = ''
+    //document.querySelector('.bookRead').value = ''
     return myLibrary;
 }
-function displayLib(){
+function displayLib(e){
+    //if(e.composedPath()[0].className==="btnShow"){
+    //if(e.type==='click'){
+        e.preventDefault(); 
+        // this line prevent the default action to happen
+        // on that event, in this case the default action is
+        // submitting the data to the form's url
+    //}
     // below is the auto refresh functionality before displaying the books
     if(document.querySelector('.card')!=null){
         const cardNumber = document.querySelectorAll('.card').length;
@@ -47,32 +143,33 @@ function displayLib(){
             }
         }
     }
-    for(let i = 0; i<= bookLib.length-1;i++){
-        /* creating a div card with DOM manipulation */
+    if(document.querySelector('.display')===null){ 
+        // this line is used so that we avoid creating multiple h2, each time we click on the button display lib
+        // declaration of the container div
+        const divDisp = document.createElement('div');
+        divDisp.classList.add('display')
+        // this is the trick
+        document.body.appendChild(divDisp);
+        // declaration of the header h2
+        const hTwo = document.createElement('h2');
+        hTwo.innerText = 'My Books'
+        divDisp.appendChild(hTwo); 
+    }
+    for(let i = 0; i<= myLibrary.length-1;i++){
+        // creating a div card with DOM manipulation
         const divCard = document.createElement('div');
-        //divCard.classList.add(`card${i+1}`)
         divCard.classList.add('card')
-        // select the card we are working on
-        //document.querySelector(`.card${i+1}`)
-        //document.querySelector('.display').appendChild(document.getElementsByClassName(`card${i+1}`));
         // this is the trick
         document.querySelector('.display').appendChild(divCard);
-        //working
-        //document.querySelector('.display').appendChild(document.getElementsByClassName('card'));
         //test
         document.querySelector('.display').appendChild(document.querySelectorAll('.card')[i]);
         const hThree = document.createElement('h3');
         hThree.textContent = `Book ${i+1}`
-        //document.getElementsByClassName(`card${i+1}`).appendChild(hThree);
-        //working
-        //divCard.appendChild(hThree);
-        //test
+ 
         document.querySelectorAll('.card')[i].appendChild(hThree);
         const divCardContent = document.createElement('div');
         divCardContent.classList.add('card-content')
-        // working
-        //divCard.appendChild(divCardContent);
-        //test
+        
         document.querySelectorAll('.card')[i].appendChild(divCardContent);
         const uL = document.createElement('ul');
         const iL = document.createElement('il');
@@ -128,7 +225,7 @@ function displayLib(){
         document.querySelector(".pagesVal").style.gridColumn='2/3';
         document.querySelector(".readVal").style.gridColumn='2/3';
         //
-        /* Add the inputs to the span element */
+        // Add the inputs to the span element
         //document.querySelector('.titleVal').innerText = myLibrary[i].title
         document.querySelectorAll('.card')[i].querySelector('.titleVal').innerText = myLibrary[i].title
         //document.querySelector('.authorVal').innerText = myLibrary[i].author
@@ -137,7 +234,44 @@ function displayLib(){
         document.querySelectorAll('.card')[i].querySelector('.pagesVal').innerText = myLibrary[i].pages
         //document.querySelector('.readVal').innerText = myLibrary[i].read
         document.querySelectorAll('.card')[i].querySelector('.readVal').innerText = myLibrary[i].read
+        // delete button
+        const btnDelete = document.createElement('button');
+        btnDelete.setAttribute("class","btnDelete");
+        btnDelete.setAttribute("id",`${i}`);// help us to locate the index of the exact book inside myLibrary
+        btnDelete.innerText='Remove this book';
+        divCard.appendChild(btnDelete);
+        // preparation for next delete buttonn event listeners
+        btnDelete.addEventListener('click',removeBook);
+        // change read status button
+        const changeReadStatus = document.createElement('button');
+        changeReadStatus.setAttribute("class","btnChangeStatus");
+        changeReadStatus.setAttribute("id",`${i}`);// help us to locate the index of the exact book inside myLibrary
+        changeReadStatus.innerText='Switch Reading Status';
+        divCard.appendChild(changeReadStatus);
+        // preparation for next delete buttonn event listeners
+        changeReadStatus.addEventListener('click',changeReadingStatus);
     }
-    return bookLib;
+    return myLibrary;
 }
 
+function removeBook(e){
+/*     const index = console.log(e.id)
+    console.log(index) */
+    //console.log(e.path[1]) // select the container of the button that we clicked on.
+/*     console.log(e.composedPath().attributes)
+    console.log(e.composedPath()[0].attributes[0].textContent) */
+    console.log(e.composedPath()[1].lastChild.id)
+    // now I need to remove the book from the array
+    const bookIndex = e.composedPath()[1].lastChild.id;
+    myLibrary.splice(bookIndex,1);//remove the book from the array
+    e.composedPath()[1].remove(); // remove the book from the display
+}
+
+function changeReadingStatus(e){
+    //console.log(e.composedPath())
+    const bookIndex = e.composedPath()[1].lastChild.id;
+    myLibrary[bookIndex].toggle();// switch reading status
+    // update the display of the book status
+    document.querySelectorAll('.card')[bookIndex].querySelector('.readVal').innerText = myLibrary[bookIndex].read
+    return myLibrary
+}

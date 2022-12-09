@@ -7,24 +7,6 @@ html {
     height: 100vh;
     width: 100vw;
 }
-body {
-    height: 100%;
-    width: 100%;
-    display: grid;
-    grid-template-rows: 10% 30% 60%;
-}
-
-.header {
-    grid-row: 1/2;
-}
-
-.entry {
-    grid-row: 2/3;
-}
-
-.display {
-    grid-row: 3/4;
-}
 
 ul li {
     list-style-type: none;
@@ -35,14 +17,88 @@ a {
     color: black;
 }
 
+body {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 10% 30% 60%;
+}
+
+.header {
+    grid-row: 1/2;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 20% 20%;
+}
+.header h1 {
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+.header .newBook {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    width: 50%;
+    height: 50%;
+    align-self: center;
+    justify-items: center;
+    background-color: gold;
+    font-weight: 900;
+}
+
+/*entry*/
+.entry {
+    grid-row: 2/3;
+    display:grid;
+    grid-template-columns: 10% 20%;
+}
+label {
+    grid-column: 1/2;
+    background-color:aquamarine;
+}
+form button {
+    grid-column: 2/3;
+    width: 50%;
+    align-self: center;
+    justify-self: center;
+    background-color: green;
+    font-weight: 900;
+}
+
+/* display*/
 .display {
+    grid-row: 3/4;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-template-rows: 20% 50%;
+    grid-template-rows: 20% 60% 10% 10%;
 }
 .display h2 {
     grid-row: 1/2;
 }
+
+.display .btnDelete {
+    margin-top: 10px;
+    margin-left: 20px;
+    grid-row: 3/4;
+    align-self: center;
+    justify-self: center;
+    background-color: red;
+    color: white;
+    font-weight: 900;
+}
+
+.display .btnChangeStatus {
+    margin-top: 10px;
+    margin-left: 20px;
+    grid-row: 4/5;
+    align-self: center;
+    justify-self: center;
+    background-color: yellowgreen;
+    color: white;
+    font-weight: 900;
+}
+
+
+/* This part need to be done inside DOM JS*/
 .card {
 /*     width: 300px;
     height: 400px;  */
@@ -63,3 +119,4 @@ a {
 .card-content ul li span {
     grid-column: 2/3;
 }
+/* */
