@@ -63,6 +63,14 @@ form button {
     background-color: green;
     font-weight: 900;
 }
+/* trial */
+.div-error {
+    grid-column: 3/4;
+    width: 200px;
+    color: #ff3860;
+    font-weight: bolder;
+    visibility: hidden;
+}
 
 /* display*/
 .display {
@@ -120,11 +128,33 @@ form button {
     grid-column: 2/3;
 }
 /* */
-
+/* 
 input:invalid {
     border: 2px dashed red;
 }
   
 input:valid {
     border: 2px dashed green;
+} */
+
+
+/**/
+.entry input:focus {
+    outline: 0;
 }
+
+input.success,  select.success{
+    border-color: #09c372;
+    border-width: 2px;
+}
+
+input.error, select.error {
+    border-color: #ff3860;
+    border-width: 2px;
+}
+
+/* .entry .error {
+    color: #ff3860;
+    font-size: 9px;
+    height: 13px;
+} */
