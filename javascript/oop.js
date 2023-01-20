@@ -83,6 +83,28 @@ let libProj = {
     authorInputError : undefined,
     pagesInputError : undefined,
     newSelectError : undefined,
+    cardNumber : undefined,
+    divDisp : undefined,
+    dispHTwo : undefined,
+    divCard : undefined,
+    hThree : undefined,
+    divCardContent : undefined,
+    uL : undefined,
+    iL : undefined,
+    articleTitle : undefined,
+    spanTitle : undefined,
+    articleAuthor : undefined,
+    spanAuthor : undefined,
+    articlePages : undefined,
+    spanPages : undefined,
+    articleRead : undefined,
+    spanRead : undefined,
+    btnDelete : undefined,
+    changeReadStatus : undefined,
+    btnDeleteEvent : undefined,
+    changeReadStatusEvent : undefined,
+    bookIndexRemove : undefined,
+    bookIndexChange : undefined,
     // methods
     addNewBook : function(){
         // creating form element
@@ -158,7 +180,114 @@ let libProj = {
             libProj.newSelect.value = "reading_status!";
         }
     },
-    displayLib : function(){
+    displayLib : function(e){
+        e.preventDefault(); 
+        // this line prevent the default action to happen
+        // on that event, in this case the default action is
+        // submitting the data to the form's url
+        // below is the auto refresh functionality before displaying the books
+        if(document.querySelector('.card')!=null){
+            libProj.cardNumber = document.querySelectorAll('.card').length;
+            if(libProj.cardNumber==1){
+                document.querySelector('.card').remove();
+            }else{
+                for(let i= 0;i<=libProj.cardNumber-1;i++){
+                    //document.querySelectorAll('.card')[i].remove();
+                    document.querySelector('.card').remove();
+                }
+            }
+        } else if(document.querySelector('.display')===null){ 
+            // this line is used so that we avoid creating multiple h2, each time we click on the button display lib
+            // declaration of the container div
+            libProj.divDisp = new CreateElmt(libProj.divDisp,'div',document.body,'','class','display').createElmt();
+            // declaration of the header h2
+            libProj.dispHTwo = new CreateElmt(libProj.dispHTwo,'h2',libProj.divDisp,'My Books').createElmt();
+        }
+        for(let i = 0; i<= libProj.myLibrary.length-1;i++){
+            // creating a div card with DOM manipulation
+            libProj.divCard = new CreateElmt(libProj.divCard,'div',document.querySelector('.display'),'','class','card').createElmt();
+            /* //test
+            document.querySelector('.display').appendChild(document.querySelectorAll('.card')[i]); */
+            libProj.hThree = new CreateElmt(libProj.hThree,'h3',document.querySelectorAll('.card')[i],`Book ${i+1}`).createElmt();
+
+            libProj.divCardContent = new CreateElmt(libProj.divCardContent,'div',document.querySelectorAll('.card')[i],`Book ${i+1}`,'class','card-content').createElmt();
+
+            libProj.uL = new CreateElmt(libProj.uL,'ul',libProj.divCardContent,``,).createElmt();
+
+            libProj.iL = new CreateElmt(libProj.iL,'il',libProj.uL,``,).createElmt();
+
+            // creating the articles and spans title
+            libProj.articleTitle = new CreateElmt(libProj.articleTitle,'a',libProj.iL,`Title:`,'href','#').createElmt();
+
+            libProj.spanTitle = new CreateElmt(libProj.spanTitle,'span',libProj.iL,``,'class','titleVal').createElmt();
+            // author
+            libProj.articleAuthor = new CreateElmt(libProj.articleAuthor,'a',libProj.iL,`Author:`,'href','#').createElmt();
+
+            libProj.spanAuthor = new CreateElmt(libProj.spanAuthor,'span',libProj.iL,``,'class','authorVal').createElmt();
+            // number of pages
+            libProj.articlePages = new CreateElmt(libProj.articlePages,'a',libProj.iL,`Number of pages:`,'href','#').createElmt();
+
+            libProj.spanPages = new CreateElmt(libProj.spanPages,'span',libProj.iL,``,'class','pagesVal').createElmt();
+            // read status
+            libProj.articleRead = new CreateElmt(libProj.articleRead,'a',libProj.iL,`Read Status:`,'href','#').createElmt();
+
+            libProj.spanRead = new CreateElmt(libProj.spanRead,'span',libProj.iL,``,'class','readVal').createElmt();
+            // css styling for our card-content
+
+            libProj.iL.style.display = 'grid';
+            libProj.iL.style.gridTemplateColumns = '50% 50%';
+            libProj.articleTitle.style.gridColumn = '1/2';
+            libProj.articleAuthor.style.gridColumn = '1/2';
+            libProj.articlePages.style.gridColumn = '1/2';
+            libProj.articleRead.style.gridColumn = '1/2';
+            //document.querySelectorAll(".titleVal.authorVal.pagesVal.readVal").style.gridcolumn='2/3';
+            document.querySelector(".titleVal").style.gridColumn='2/3';
+            document.querySelector(".authorVal").style.gridColumn='2/3';
+            document.querySelector(".pagesVal").style.gridColumn='2/3';
+            document.querySelector(".readVal").style.gridColumn='2/3';
+            //
+            // Add the inputs to the span element
+            //document.querySelector('.titleVal').innerText = myLibrary[i].title
+            document.querySelectorAll('.card')[i].querySelector('.titleVal').innerText = libProj.myLibrary[i].title
+            //document.querySelector('.authorVal').innerText = myLibrary[i].author
+            document.querySelectorAll('.card')[i].querySelector('.authorVal').innerText = libProj.myLibrary[i].author
+            //document.querySelector('.pagesVal').innerText = myLibrary[i].pages
+            document.querySelectorAll('.card')[i].querySelector('.pagesVal').innerText = libProj.myLibrary[i].pages
+            //document.querySelector('.readVal').innerText = myLibrary[i].read
+            document.querySelectorAll('.card')[i].querySelector('.readVal').innerText = libProj.myLibrary[i].read
+            
+            // delete button
+
+            libProj.btnDelete = new CreateElmt(libProj.btnDelete,'button',libProj.divCard,`Remove this book`,'class','btnDelete',"id",`${i}`).createElmt();
+            // the i index in the libProj.btnDelete Id help us to locate the index of the exact book inside myLibrary.
+            // preparation for next delete buttonn event listeners.
+            libProj.btnDeleteEvent = new AddEvent(libProj.btnDelete,libProj.removeBook).addEvent();
+            // change read status button
+            libProj.changeReadStatus = new CreateElmt(libProj.changeReadStatus,'button',libProj.divCard,`Switch Reading Status`,'class','btnChangeStatus',"id",`${i}`).createElmt();
+            // the i index in the libProj.btnDelete Id help us to locate the index of the exact book inside myLibrary.
+            // preparation for next delete buttonn event listeners.
+            libProj.changeReadStatusEvent = new AddEvent(libProj.changeReadStatus,libProj.changeReadingStatus).addEvent();
+        }
+    },
+    removeBook : function(e){
+        /*     const index = console.log(e.id)
+        console.log(index) */
+        //console.log(e.path[1]) // select the container of the button that we clicked on.
+        /*     console.log(e.composedPath().attributes)
+        console.log(e.composedPath()[0].attributes[0].textContent) */
+        //console.log(e.composedPath()[1].lastChild.id)
+        // now I need to remove the book from the array
+        libProj.bookIndexRemove = e.composedPath()[1].lastChild.id;
+        libProj.myLibrary.splice(libProj.bookIndexRemove,1);//remove the book from the array
+        e.composedPath()[1].remove(); // remove the book from the display
+    },
+    changeReadingStatus : function(e){
+        //console.log(e.composedPath())
+        libProj.bookIndexChange = e.composedPath()[1].lastChild.id;
+        libProj.myLibrary[libProj.bookIndexChange].toggle();// switch reading status
+        // update the display of the book status
+        document.querySelectorAll('.card')[libProj.bookIndexChange].querySelector('.readVal').innerText = libProj.myLibrary[libProj.bookIndexChange].read
+        /* return libProj.myLibrary */
     },
 }
 // add event listener to the Add book button
