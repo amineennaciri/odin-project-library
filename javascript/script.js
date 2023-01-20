@@ -39,6 +39,9 @@ function addNewBook(){
     titleInput.setAttribute("class","bookTitle");
     titleInput.setAttribute("id","book_title");
     titleInput.setAttribute("type","text");
+/*     titleInput.setAttribute("required","");
+    titleInput.setAttribute("minlength","1");
+    titleInput.setAttribute("pattern","[a-zA-Z0-9_\-\.]+"); */
     newForm.appendChild(titleInput);
     //authorLabel
     const authorLabel = document.createElement('label');
@@ -50,6 +53,7 @@ function addNewBook(){
     authorInput.setAttribute("class","bookAuthor");
     authorInput.setAttribute("id","book_author");
     authorInput.setAttribute("type","text");
+    authorInput.setAttribute("required","");
     newForm.appendChild(authorInput);
     //pagesLabel
     const pagesLabel = document.createElement('label');
@@ -61,6 +65,7 @@ function addNewBook(){
     pagesInput.setAttribute("class","bookPages");
     pagesInput.setAttribute("id","book_pages");
     pagesInput.setAttribute("type","number");
+    pagesInput.setAttribute("required","");
     newForm.appendChild(pagesInput);
     //readLabel
     const readLabel = document.createElement('label');
@@ -72,8 +77,15 @@ function addNewBook(){
     newSelect.setAttribute("name","bookRead");
     newSelect.setAttribute("class","bookRead");
     newSelect.setAttribute("id","reading_status");
+    newSelect.setAttribute("required","");
     newForm.appendChild(newSelect);
     // option inside selection
+    // choose a reading option
+    const readStatusOption = document.createElement('option');
+    readStatusOption.setAttribute("value","reading_status!");
+    readStatusOption.setAttribute('selected','')
+    readStatusOption.innerText='Choose a reading status!';
+    newSelect.appendChild(readStatusOption);
     // read option
     const readOption = document.createElement('option');
     readOption.setAttribute("value","Read");
@@ -112,6 +124,17 @@ function addBookToLibrary(e){
     // this line prevent the default action to happen
     // on that event, in this case the default action is
     // submitting the data to the form's url
+    // introducing form validation javascript
+ /*    if (!userTitle.checkValidity()) {
+        if (userTitle.validity.valueMissing) {
+            userTitle.setCustomValidity('no input')//("Please enter your email address.");
+        } else if (userTitle.validity.patternMismatch) {
+            userTitle.setCustomValidity('incorrect pattern')//("Please enter a valid email address.");
+        }
+    } else {
+        userTitle.setCustomValidity("yes It works");
+    } */
+    // end of form validation
     myLibrary.push( new Book(`${userTitle.value}`,`${userAuthor.value}`,`${userPages.value}`,`${userRead.value}`) );
 /*      for(let i=0;i<=myLibrary.length-1;i++){
         bookLib[i] = myLibrary[i].info();
